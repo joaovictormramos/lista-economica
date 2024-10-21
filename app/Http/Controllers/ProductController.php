@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
@@ -7,14 +6,16 @@ use App\Models\Brand;
 use App\Models\Package;
 use App\Models\Product;
 use App\Models\Section;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
     public function getProducts()
     {
-        $products = Product::orderBy('product_name')->get();
-        return view('/admin/products', compact('products'));
+        $products = Product::with(['brand', 'package'])->get();
+        //var_dump($products);
+        return view('/products', compact('products'));
     }
 
     public function formRegisterProduct()

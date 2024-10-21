@@ -1,31 +1,34 @@
 <?php
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ListerController;
+use App\Http\Controllers\ListerProductController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductStoreController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StoreController;
-use App\Http\Controllers\StoreProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/home', function () {
-    return view('home');
-});
-
-
+Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/home', [HomeController::class, 'index'])->name('index');
+Route::get('/estabelecimentos', [StoreController::class, 'getStores'])->name('stores');
+Route::get('/secoes', [SectionController::class, 'getSections'])->name('sections');
+Route::get('/marcas', [BrandController::class, 'getBrands'])->name('brands');
+Route::get('/produtos', [ProductController::class, 'getProducts'])->name('products');
+Route::get('/estabelecimento/{id}', [ProductStoreController::class, 'indexStore'])->name('store.products');
+Route::get('/results', [HomeController::class, 'search'])->name('search');
 
 //Admin routes
 Route::prefix('admin')->middleware(['role:superadmin'])->group(function () {
+    Route::get('/', [AdminController::class, 'management'])->name('admin.management');
     Route::get('/gerenciar', [AdminController::class, 'management'])->name('admin.management');
 
     //Stores routes
-    Route::get('/estabelecimentos', [StoreController::class, 'getStores']);
-    
+    Route::get('/estabelecimentos', [StoreController::class, 'getStores'])->name('admin.stores');
+
     Route::get('/cadastrar-estabelecimento', [StoreController::class, 'formRegisterStore']);
 
     Route::post('/cadastrar-estabelecimento', [StoreController::class, 'registerStore']);
@@ -34,20 +37,20 @@ Route::prefix('admin')->middleware(['role:superadmin'])->group(function () {
 
     Route::get('/excluir-estabelecimento/{id}', [StoreController::class, 'deleteStore']);
 
-    //StoresProducts routes
-    Route::get('/gerenciar-estoque/{id}', [StoreProductController::class, 'manageStoreProducts']);
+    //ProductStore routes
+    Route::get('/gerenciar-estoque/{id}', [ProductStoreController::class, 'manageStoreProducts'])->name('admin.manage.store');
 
-    Route::get('/editar-produto-estabelecimento/{id}', [StoreProductController::class, 'listSetStoreProducts']);
+    Route::get('/editar-produto-estabelecimento/{id}', [ProductStoreController::class, 'listSetStoreProducts'])->name('admin.formeditproduct');
 
-    Route::get('/adicionar-produto/{id}', [StoreProductController::class, 'listAddStoreProduct']);
+    Route::get('/adicionar-produto/{id}', [ProductStoreController::class, 'listAddStoreProduct'])->name('admin.formaddproduct');
 
-    Route::post('/adicionar-produto', [StoreProductController::class, 'addStoreProduct']);
+    Route::post('/adicionar-produto', [ProductStoreController::class, 'addStoreProduct']);
 
-    Route::get('/editar-produto-estabelecimento/{storeId}/{productId}', [StoreProductController::class, 'fomrSetSetoreProduct']);
+    Route::get('/editar-produto-estabelecimento/{storeId}/{productId}', [ProductStoreController::class, 'formSetSetoreProduct']);
 
-    Route::post('/editar-produto-estabelecimento', [StoreProductController::class, 'setSetoreProduct']);
+    Route::post('/editar-produto-estabelecimento', [ProductStoreController::class, 'setSetoreProduct'])->name('admin.edit.store.product');
 
-    Route::get('/remover-produto-estoque/{storeId}/{storeProductId}', [StoreProductController::class, 'deleteProductStore']);
+    Route::get('/remover-produto-estoque/{storeId}/{storeProductId}', [ProductStoreController::class, 'deleteProductStore']);
 
     //Sections routes
     Route::get('/secoes', [SectionController::class, 'getSections']);
@@ -74,13 +77,13 @@ Route::prefix('admin')->middleware(['role:superadmin'])->group(function () {
     //Products routes
     Route::get('/produtos', [ProductController::class, 'getProducts']);
 
-    Route::get('/cadastrar-produto', [ProductController::class, 'formRegisterProduct']);
+    Route::get('/cadastrar-produto', [ProductController::class, 'formRegisterProduct'])->name('admin.registerproduct');
 
     Route::post('/cadastrar-produto', [ProductController::class, 'registerProduct']);
 
-    Route::get('/editar-produto/{id}', [ProductController::class, 'formUpdateProduct']);
+    Route::get('/editar-produto/{id}', [ProductController::class, 'formUpdateProduct'])->name('admin.editproduct');
 
-    Route::get('/excluir-produto/{id}', [ProductController::class, 'deleteProduct']);
+    Route::get('/excluir-produto/{id}', [ProductController::class, 'deleteProduct'])->name('admin.deleteproduct');
 
     //Package routes
     Route::get('/embalagens', [PackageController::class, 'getPackages']);
@@ -92,6 +95,10 @@ Route::prefix('admin')->middleware(['role:superadmin'])->group(function () {
     Route::get('/editar-embalagem/{id}', [PackageController::class, 'formUpdatePackage']);
 
     Route::get('/excluir-embalagem/{id}', [PackageController::class, 'deletePackage']);
+});
+
+Route::prefix('user')->middleware(['role:user'])->group(function () {
+
 });
 
 //Route::get()
@@ -111,9 +118,14 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/minhas-listas/{id}', [ListerController::class, 'getListerUser'])->name('user.lists');
+    Route::get('/nova-lista/', [ListerController::class, 'formCreateList'])->name('user.formCreatelist');
+    Route::post('/nova-lista/', [ListerController::class, 'createList'])->name('user.createlist');
+    Route::get('/perfil', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/adicionar-produto', [ListerProductController::class, 'addProduct'])->name('user.addProduct');
+    Route::post('/buscar-menor-preco', [ListerProductController::class, 'lowerPrice'])->name('user.lowerPrice');
 });
 
 require __DIR__ . '/auth.php';

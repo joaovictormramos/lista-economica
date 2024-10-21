@@ -10,7 +10,7 @@ class PackageController extends Controller
     function getPackages()
     {
         $packages = Package::orderBy('package_name')->get();
-        return view('/admin/packages', compact('packages'));
+        return view('/packages', compact('packages'));
     }
 
     function formRegisterPackage() 

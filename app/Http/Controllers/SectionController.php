@@ -11,7 +11,7 @@ class SectionController extends Controller
     public function getSections()
     {
         $sections = Section::orderBy('section_name')->get();
-        return view("/admin/sections", compact('sections'));
+        return view("/sections", compact('sections'));
     }
 
     public function formRegisterSection()

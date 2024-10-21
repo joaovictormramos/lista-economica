@@ -11,7 +11,7 @@ class StoreController extends Controller
     public function getStores()
     {
         $stores = Store::orderBy('store_name')->get();
-        return view('/admin/stores', compact('stores'));
+        return view('/stores', compact('stores'));
     }
 
     public function formRegisterStore()

@@ -11,7 +11,7 @@ class BrandController extends Controller
     public function getBrands()
     {
         $brands = Brand::orderBy('brand_name')->get();
-        return view("/admin/brands", compact('brands'));
+        return view("/brands", compact('brands'));
     }
 
     public function formRegisterBrand()
@@ -33,10 +33,10 @@ class BrandController extends Controller
             $path = $img->store('public/images');
             $arrayImg = explode('/', $path);
             $fileName = end($arrayImg);
-            if ($store->store != "") {
-                Storage::delete("public/images/" . $brand->brand_image);
+            if ($brand->brand_img != "") {
+                Storage::delete("public/images/" . $brand->brand_img);
             }
-            $brand->brand_image = $fileName;
+            $brand->brand_img = $fileName;
         }
         $brand->brand_name = $request->input('name');
         $brand->save();
