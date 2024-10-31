@@ -25,7 +25,7 @@
             <p>{{$product->product_name}} <strong>{{$product->brand->brand_name}}</strong> {{$product->product_measurement}} {{$product->product_unity_measurement}}</p>
             <div class="dropdown">
 
-                @can(!'isSuperadmin')
+                @cannot('isSuperadmin')
                 <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">Adicionar à lista</button>
                 @endif
                 <!--Dropdown contendo as listas do usuário. As listas estão sendo carregas pelo método boot() do AppServiceProvider-->
