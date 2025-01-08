@@ -6056,16 +6056,16 @@
         },
         {
             "name": "lucascudo/laravel-pt-br-localization",
-            "version": "v3.0.1",
+            "version": "v3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucascudo/laravel-pt-BR-localization.git",
-                "reference": "79e556cdd4b85f0a1e2d81bf243c512b1860f198"
+                "reference": "d1cb897a6e39309d3c2c6c8ab8341ca0e1818a78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucascudo/laravel-pt-BR-localization/zipball/79e556cdd4b85f0a1e2d81bf243c512b1860f198",
-                "reference": "79e556cdd4b85f0a1e2d81bf243c512b1860f198",
+                "url": "https://api.github.com/repos/lucascudo/laravel-pt-BR-localization/zipball/d1cb897a6e39309d3c2c6c8ab8341ca0e1818a78",
+                "reference": "d1cb897a6e39309d3c2c6c8ab8341ca0e1818a78",
                 "shasum": ""
             },
             "type": "library",
@@ -6095,7 +6095,7 @@
             "homepage": "https://github.com/lucascudo/laravel-pt-br-localization",
             "support": {
                 "issues": "https://github.com/lucascudo/laravel-pt-BR-localization/issues",
-                "source": "https://github.com/lucascudo/laravel-pt-BR-localization/tree/v3.0.1"
+                "source": "https://github.com/lucascudo/laravel-pt-BR-localization/tree/v3.0.2"
             },
             "funding": [
                 {
@@ -6111,7 +6111,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-23T08:45:10+00:00"
+            "time": "2024-11-20T15:00:59+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -7941,12 +7941,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
