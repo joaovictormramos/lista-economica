@@ -1,4 +1,5 @@
 @extends('template')
+@section('title', 'Registrar nova sessão')
 @section('content')
 <div class="container">
     <form action="/admin/cadastrar-secao" method="post">
@@ -7,10 +8,8 @@
 
         <label for="name">Seção</label>
         <input type="text" name="name" id="name" value="{{$section->section_name}}" required>
-
-     @extends('template')
-@section('content')
-<div class="container">   @if ($section->id != 0)
+        
+        <div class="container">   @if ($section->id != 0)
         <button class="btn btn-primary">Salvar alterações</button>
         @else
         <button class="btn btn-primary">Cadastrar</button>

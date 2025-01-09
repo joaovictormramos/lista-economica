@@ -44,8 +44,7 @@ class ProductStoreController extends Controller
     {
         $productsToRegisterAtStore = Product::whereDoesntHave('stores', function ($query) use ($id) {
             $query->where('store_id', $id);
-        })
-            ->get();
+        })->get();
         $store = Store::find($id);
         return view('/store_products/store_products_to_register', compact('productsToRegisterAtStore', 'store'));
     }

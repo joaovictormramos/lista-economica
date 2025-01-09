@@ -1,5 +1,5 @@
 @extends('template')
-
+@section('title', 'Registrar novo produto')
 @section('content')
 <div class="container">
     <br>

@@ -11,9 +11,8 @@
     <script src="/storage/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-    <header class="p-3 mb-3 border-bottom fixed-top bg-white">
+    <header class="p-3 mb-3 border-bottom fixed-top bg-white cabecalho">
         <div class="container">
-            
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <!--LOGOMARCA-->
                 <a href="{{ route('index') }}" class="navbar-brand">
@@ -83,9 +82,7 @@
                     @endif
                 </div>
                 <!--OPÇÕES DE ENTRAR, CADASTRAR, SAIR (A DEPENDER DO AUTH())-->
-
             </div>
-
         </div>
     </header>
 

@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('product_name');
             $table->integer('brand_id');
-            $table->string('product_description');
+            $table->string('product_description')->nullable();
             $table->decimal('product_measurement', total:8, places:3);
             $table->string('product_unity_measurement', length: 8);
             $table->integer('package_id');
             $table->integer('section_id');
+            $table->string('product_img')->nullable();
             $table->timestamps();
         });
     }

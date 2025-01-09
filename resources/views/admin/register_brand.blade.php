@@ -1,7 +1,7 @@
 @extends('template')
+@section('title', 'Registrar marca')
 
 @section('content')
-
 <div class="container">
     <form action="/admin/cadastrar-marca" method="post" enctype="multipart/form-data">
         @csrf

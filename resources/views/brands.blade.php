@@ -4,14 +4,15 @@
 @section('content')
 
 <div class="container">
-
     <h2>Marcas</h2>
     <section class="layoutgrid">
         @foreach ($brands as $brand)
             <div class="panel">
-                @if($brand->brand_img != "")
-                <img src="/storage/images/{{$brand->brand_img}}" width="200px" alt="não achado">
-                @endif
+                <div class="panel-image">
+                    @if($brand->brand_img != "")
+                    <img src="/storage/images/{{$brand->brand_img}}" width="200px" alt="não achado">
+                    @endif
+                </div>
                 <figcaption>{{$brand->brand_name}}</figcaption>
                 @can('isSuperadmin')
                 <a href="/admin/editar-marca/{{$brand->id}}" class="btn btn-warning">Editar</a>
