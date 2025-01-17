@@ -28,8 +28,8 @@ class BrandController extends Controller
         } else {
             $brand = Brand::find($request->input('id'));
         }
-        if ($request->hasFile('brand_image')) {
-            $img = $request->file('brand_image');
+        if ($request->hasFile('brand_img')) {
+            $img = $request->file('brand_img');
             $path = $img->store('public/images');
             $arrayImg = explode('/', $path);
             $fileName = end($arrayImg);
@@ -38,7 +38,7 @@ class BrandController extends Controller
             }
             $brand->brand_img = $fileName;
         }
-        $brand->brand_name = $request->input('name');
+        $brand->brand_name = $request->input('brand_name');
         $brand->save();
         return redirect('/admin/marcas');
     }

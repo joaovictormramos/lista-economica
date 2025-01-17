@@ -13,8 +13,8 @@ class PackageController extends Controller
         return view('/packages', compact('packages'));
     }
 
-    function formRegisterPackage() 
-    { 
+    function formRegisterPackage()
+    {
         $package = new Package();
         $package->id = 0;
         return view('/admin/register_package', compact('package'));
@@ -27,7 +27,7 @@ class PackageController extends Controller
         } else {
             $package = Package::find($request->input('id'));
         }
-        $package->package_name = $request->input('name');    
+        $package->package_name = $request->input('package_name');
         $package->save();
         return redirect('/admin/embalagens');
     }

@@ -23,19 +23,19 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'product_name' => 'required|string|max:255',
             'brand_id' => 'required|integer',
-            'description' => 'nullable|string|max:1000',
-            'measurement' => 'required|numeric'
+            'measurement' => 'required|numeric',
+            'description' => 'nullable|string|max:1000'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => 'O campo "nome" é obrigatório.',
-            'brand_id.required' => 'O campo "marca" é obrigatório.',
-            'measurement.required' => 'O campo "medida" é obrigatório.',
+            'product_name.required' => 'O campo "Produto" é obrigatório.',
+            'brand_id.required' => 'O campo "Marca" é obrigatório.',
+            'measurement.required' => 'O campo "Medida" é obrigatório.',
         ];
     }
 

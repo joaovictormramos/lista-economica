@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\HomeController;
@@ -22,7 +23,7 @@ Route::get('/estabelecimento/{id}', [ProductStoreController::class, 'indexStore'
 Route::get('/results', [HomeController::class, 'search'])->name('search');
 
 //Admin routes
-Route::prefix('admin')->middleware(['role:superadmin'])->group(function () {
+Route::prefix('admin')->middleware(['role:superadmin,admin'])->group(function () {
     Route::get('/', [AdminController::class, 'management'])->name('admin.management');
     Route::get('/gerenciar', [AdminController::class, 'management'])->name('admin.management');
 
@@ -64,9 +65,9 @@ Route::prefix('admin')->middleware(['role:superadmin'])->group(function () {
     Route::get('/excluir-secao/{id}', [SectionController::class, 'deleteSection']);
 
     //Brands routes
-    Route::get('/marcas', [BrandController::class, 'getBrands']);
+    Route::get('/marcas', [BrandController::class, 'getBrands'])->name('admin.brands');
 
-    Route::get('/cadastrar-marca', [BrandController::class, 'formRegisterBrand']);
+    Route::get('/cadastrar-marca', [BrandController::class, 'formRegisterBrand'])->name('admin.registerBrand');
 
     Route::post('/cadastrar-marca', [BrandController::class, 'registerBrand']);
 
@@ -75,7 +76,7 @@ Route::prefix('admin')->middleware(['role:superadmin'])->group(function () {
     Route::get('/excluir-marca/{id}', [BrandController::class, 'deleteBrand']);
 
     //Products routes
-    Route::get('/produtos', [ProductController::class, 'getProducts']);
+    Route::get('/produtos', [ProductController::class, 'getProducts'])->name('products.index');
 
     Route::get('/cadastrar-produto', [ProductController::class, 'formRegisterProduct'])->name('admin.registerproduct');
 
@@ -97,9 +98,7 @@ Route::prefix('admin')->middleware(['role:superadmin'])->group(function () {
     Route::get('/excluir-embalagem/{id}', [PackageController::class, 'deletePackage']);
 });
 
-Route::prefix('user')->middleware(['role:user'])->group(function () {
-
-});
+Route::prefix('user')->middleware(['role:user'])->group(function () {});
 
 //Route::get()
 /*

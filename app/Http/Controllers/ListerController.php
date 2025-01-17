@@ -13,7 +13,7 @@ class ListerController extends Controller
     {
         $user = User::find($id);
         $lists = $user->lists()->orderBy('scheduled_date')->get();
-        //dd($lists);
+        //var_dump($lists);
         return view('/user/user_lists', compact('lists', 'user'));
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
@@ -13,9 +14,11 @@ class ProductController extends Controller
 {
     public function getProducts()
     {
-        $products = Product::with(['brand', 'package'])->get();
-        //var_dump($products);
-        return view('/products', compact('products'));
+        $products = Product::with(['brand', 'package'])->paginate(50);
+        $brands = Brand::orderBy('brand_name', 'ASC')->get();
+        $sections = Section::orderBy('section_name', 'ASC')->get();
+
+        return view('/products', compact('products', 'brands', 'sections'));
     }
 
     public function formRegisterProduct()
@@ -46,11 +49,11 @@ class ProductController extends Controller
             }
             $product->product_img = $fileName;
         }
-        $product->product_name = $productRequest->input('name');
+        $product->product_name = $productRequest->input('product_name');
         $product->brand_id = $productRequest->input('brand_id');
         $product->product_description = $productRequest->input('description');
         $product->product_measurement = $productRequest->input('measurement');
-        $product->product_unity_measurement = $productRequest->input('unity_measurement');
+        $product->product_unity_measurement = $productRequest->input('product_unity_measurement');
         $product->package_id = $productRequest->input('package');
         $product->section_id = $productRequest->input('section');
         $product->save();

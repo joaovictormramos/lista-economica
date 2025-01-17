@@ -28,7 +28,7 @@ class SectionController extends Controller
         } else {
             $section = Section::find($request->input('id'));
         }
-        $section->section_name = $request->input('name');
+        $section->section_name = $request->input('section_name');
         $section->save();
         return redirect('/admin/secoes');
     }
