@@ -8,6 +8,7 @@ use App\Models\Package;
 use App\Models\Product;
 use App\Models\Section;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller

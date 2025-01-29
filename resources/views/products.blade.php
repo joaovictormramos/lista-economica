@@ -8,7 +8,7 @@
     <!-- Search and Filter Section -->
     <div class="row mb-4">
         <div class="col-md-12">
-            <form action="" method="GET" class="row g-3">
+            <!--<form action="" method="" class="row g-3">
                 <div class="col-md-4">
                     <input type="text" name="search" class="form-control" placeholder="Pesquisar produtos..." value="{{ request('search') }}">
                 </div>
@@ -35,7 +35,7 @@
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-primary w-100">Filtrar</button>
                 </div>
-            </form>
+            </form>-->
         </div>
     </div>
 
@@ -117,7 +117,7 @@
         // Clear filters
         $('.clear-filters').click(function(e) {
             e.preventDefault();
-            window.location = '{{ route("products.index") }}';
+            window.location = '';
         });
     });
 </script>

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> @yield('title') - {{ config('app.name', 'Laravel') }}</title>
-    <link rel="shortcut icon" href="/storage/appimages/logo.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/storage/images/carrinhoEconomico.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/storage/css/estilo.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -16,12 +16,12 @@
 
 <body>
     <header class="p-3 mb-3 border-bottom fixed-top bg-white">
-        <div class="container text-center">
-            <div class="row align-items-center justify-content-center g-2">
-                <div class="col-auto">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col">
                     <!--LOGOMARCA-->
                     <a href="{{ route('index') }}" class="navbar-brand">
-                        <img src="/storage/images/20240612_220817_0000.png" width="70px" alt="LOGO">
+                        <img src="/storage/images/carrinhoEconomico.png" width="70px" alt="LOGO">
                     </a>
                     <!--LOGOMARCA-->
                 </div>
@@ -29,8 +29,8 @@
                     <!--FORMULÁRIO PARA BUSCAR PRODUTO, MARCA ETC-->
                     <form action=" {{ route('search') }}" method="get">
                         <div class="input-group">
-                            <button class="btn btn-outline-primary" type="submit" id="button-addon1">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#0d6efd">
+                            <button class="btn btn-outline-success" type="submit" id="button-addon1">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#008000">
                                     <path d="M0 0h24v24H0V0z" fill="none" />
                                     <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
                                 </svg>
@@ -41,22 +41,19 @@
                     <!--FORMULÁRIO PARA BUSCAR PRODUTO, MARCA ETC-->
                 </div>
                 <!--OPÇÕES DE ENTRAR, CADASTRAR, SAIR (A DEPENDER DO AUTH())-->
-                <div class="col-auto">
+                <div class="col">
                     @if (Route::has('login'))
-                    <nav class="-mx-3 flex flex-1 justify-end">
+                    <nav class="mx-3 flex flex-1 justify-end">
                         @auth
                         <div>
                             @can('isSuperadmin')
-                            <a class="btn btn-outline-primary me-2" href="{{ route('admin.management') }}">Painel Administrativo</a>
+                            <a class="btn btn-outline-success me-2" href="{{ route('admin.management') }}">Painel Administrativo</a>
                             @else
                             <div class="dropdown">
-                                <button class="btn btn-outline-primary dropdown-toggle btn-sm" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false"">
-                                        <svg xmlns=" http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-                                    class="bi bi-person-circle" viewBox="0 0 16 16">
-                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                                    <path fill-rule="evenodd"
-                                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                                <button class="btn btn-outline-success dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false"">
+                                    <svg xmlns=" http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
                                     </svg>
                                 </button>
                                 <ul class="dropdown-menu">
@@ -74,9 +71,9 @@
                             @endcan
                         </div>
                         @else
-                        <a class="btn btn-outline-primary" href="{{ route('login') }}">Entrar</a>
+                        <a class="btn btn-outline-success" href="{{ route('login') }}">Entrar</a>
                         @if (Route::has('register'))
-                        <a class="btn btn-primary" href="{{ route('register') }}">Cadastrar</a>
+                        <a class="btn btn-success" href="{{ route('register') }}">Cadastrar</a>
                         @endif
                         @endauth
                     </nav>
@@ -88,16 +85,16 @@
                 <div class="col-6 mx-auto text-center">
                     <!--Lista não ordenada para navegação-->
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="{{ route('products') }}" class="nav-link px-2">Produtos</a></li>
-                        <li><a href="{{ route('brands') }}" class="nav-link px-2">Marcas</a></li>
-                        <li><a href="{{ route('stores') }}" class="nav-link px-2">Estabelecimentos</a></li>
+                        <li><a href="{{ route('products') }}" class="nav-link px-2" style="color: green">Produtos</a></li>
+                        <li><a href="{{ route('brands') }}" class="nav-link px-2" style="color: green">Marcas</a></li>
+                        <li><a href="{{ route('stores') }}" class="nav-link px-2" style="color: green">Estabelecimentos</a></li>
                     </ul>
                     <!--Lista não ordenada para navegação-->
                 </div>
             </div>
         </div>
     </header>
-
+    <br>
     <main class="content">
         @yield('content')
 
@@ -112,10 +109,7 @@
                 <p>{{$product->product_name}}</p>
                 @endforeach
 
-                @if (session('storeName'))
-                <p>{{ session('storeName') }} <strong>R$ {{session('total_price')}}</strong></p>
-                @endif
-
+                <strong>R$ {{$list->total}}</strong>
 
                 <form action="{{ route('user.lowerPrice') }}" method="post">
                     @csrf

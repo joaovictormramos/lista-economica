@@ -14,7 +14,7 @@
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="row">
             <div class="col align-self-center text-center">
-                <img src="/storage/appimages/pexels-kevin-malik-9016541.jpg" width="500px" alt=""> 
+                <img src="/storage/images/pexels-n-voitkevich-6214451.jpg" width="400vh" height="" alt=""> 
             </div>
             <div class="col shadow-sm p-3 mb-5 bg-body-tertiary rounded align-self-center">
                 <form method="POST" action="{{ route('login') }}">

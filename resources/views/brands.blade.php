@@ -8,7 +8,7 @@
     <h2>Marcas</h2>
     <section class="layoutgrid">
         @foreach ($brands as $brand)
-        <div class="panel">
+        <div class="panel border">
             <div class="panel-image">
                 @if($brand->brand_img != "")
                 <img src="/storage/images/{{$brand->brand_img}}" width="200px" alt="não achado">

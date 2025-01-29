@@ -3,6 +3,7 @@
 
 @section('content')
 <div class="container">
+    <br>
     <h2>Estabelecimentos</h2>
 
     <section class="layoutgrid">
@@ -20,7 +21,6 @@
             <a href="/admin/editar-estabelecimento/{{$store->id}}" class="btn btn-warning">Editar dados do estabelecimento</a>
             <a href="/admin/excluir-estabelecimento/{{$store->id}}" class="btn btn-danger">Excluir estabelecimento</a>
             @endcan
-            
         </div>
         @endforeach
     </section>

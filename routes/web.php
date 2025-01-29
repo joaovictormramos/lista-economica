@@ -118,13 +118,14 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/minhas-listas/{id}', [ListerController::class, 'getListerUser'])->name('user.lists');
-    Route::get('/nova-lista/', [ListerController::class, 'formCreateList'])->name('user.formCreatelist');
-    Route::post('/nova-lista/', [ListerController::class, 'createList'])->name('user.createlist');
+    Route::get('/nova-lista', [ListerController::class, 'formCreateList'])->name('user.formCreatelist');
+    Route::post('/nova-lista', [ListerController::class, 'createList'])->name('user.createlist');
     Route::get('/perfil', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/adicionar-produto', [ListerProductController::class, 'addProduct'])->name('user.addProduct');
     Route::post('/buscar-menor-preco', [ListerProductController::class, 'lowerPrice'])->name('user.lowerPrice');
+    Route::get('/detalhes-lista/{id}', [ListerController::class, 'details'])->name('list.details');
 });
 
 require __DIR__ . '/auth.php';

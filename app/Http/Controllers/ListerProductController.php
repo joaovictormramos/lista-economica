@@ -35,12 +35,17 @@ class ListerProductController extends Controller
     {
         //recebe o id da lista
         $listId = $request->input('listId');
-
+        $list = Lister::find($listId);
+        
         $lowerTotalPriceStore = DB::table('product_store')
             ->join('products', 'product_store.product_id', '=', 'products.id')
             ->join('lister_product', 'products.id', '=', 'lister_product.product_id')
             ->where('lister_product.lister_id', $listId)
-            ->select('product_store.store_id', DB::raw('SUM(product_store.product_price) as total_price'))
+            ->select(
+                'product_store.store_id', 
+                DB::raw('SUM(product_store.product_price) as total_price'),
+                DB::raw('COUNT(product_store.product_id) as total_quantity')
+            )
             ->groupBy('product_store.store_id')
             ->orderBy('total_price', 'asc')
             ->first();
@@ -49,7 +54,10 @@ class ListerProductController extends Controller
         $storeId = $lowerTotalPriceStore->store_id;
         $total_price = $lowerTotalPriceStore->total_price;
         
-        session(['total_price' => $total_price, 'storeName' => $storeName, 'storeId' => $storeId]);
+        $list->total = $total_price;
+        $list->save();
+        
+        // session(['total_price' => $total_price, 'storeName' => $storeName, 'storeId' => $storeId]);
 
         return redirect('/');
     }

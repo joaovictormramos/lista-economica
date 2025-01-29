@@ -6,6 +6,7 @@ use App\Models\Lister;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ListerController extends Controller
 {
@@ -40,5 +41,13 @@ class ListerController extends Controller
         $lister->scheduled_date = $request->input('scheduled_date') ?? date('Y-m-d');
         $lister->save();
         return redirect('/');
+    }
+
+    public function details($id)
+    {
+        $list = Lister::with('products.package', 'products.brand', 'users')->find($id); // Filtra pelo ID da lista
+        $userId = $list->user_id;
+        $products = $list->products;
+        return view('/user/details_list', compact('list', 'userId'));
     }
 }
