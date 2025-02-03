@@ -14,7 +14,7 @@ use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
-Route::get('/home', [HomeController::class, 'index'])->name('index');
+//Route::get('/home', [HomeController::class, 'index'])->name('index');
 Route::get('/estabelecimentos', [StoreController::class, 'getStores'])->name('stores');
 Route::get('/secoes', [SectionController::class, 'getSections'])->name('sections');
 Route::get('/marcas', [BrandController::class, 'getBrands'])->name('brands');
@@ -25,7 +25,7 @@ Route::get('/results', [HomeController::class, 'search'])->name('search');
 //Admin routes
 Route::prefix('admin')->middleware(['role:superadmin,admin'])->group(function () {
     Route::get('/', [AdminController::class, 'management'])->name('admin.management');
-    Route::get('/gerenciar', [AdminController::class, 'management'])->name('admin.management');
+   // Route::get('/gerenciar', [AdminController::class, 'management'])->name('admin.management');
 
     //Stores routes
     Route::get('/estabelecimentos', [StoreController::class, 'getStores'])->name('admin.stores');

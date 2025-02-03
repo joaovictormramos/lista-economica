@@ -1,29 +1,67 @@
 @extends('template')
+@section('title', 'Cadastrar Estabelecimento')
+
 @section('content')
 <div class="container">
-    <form action="/admin/cadastrar-estabelecimento" method="post" enctype="multipart/form-data">
+    <br>
+    @if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    <h1>Cadastrar ou Editar Estabelecimento</h1>
+    <form action="/admin/cadastrar-estabelecimento" method="post" enctype="multipart/form-data" class="form">
         @csrf
         <input type="hidden" name="id" value="{{$store->id}}">
 
-        @if ($store->store_img != "")
-        <img src="/storage/images/{{$store->store_img}}" style="width: 70px" alt="">
-        @endif
+	<div class="row mb-3">
+	    <!--Coluna da imagem-->
+            <div class="col-md-4">
+                <div class="row mb-3">
+                    <div class="col">
+			<label for="store_img" class="form-label">Imagem</label>
+		        <input type="file" name="store_img" class="form-control" accept="image/*" id="store_img">
+			<small class="form-text">Carregue uma imagem (PNG, JPG, WebP até 5MB)</small>
 
-        <label for="name">Estabelecimento</label>
-        <input type="text" name="name" id="name" value="{{$store->store_name}}" required>
+			@if($store->store_img != "")
+        		<div class="mt-2">
+			    <img src="{{ asset('storage/images/' . $store->store_img) }}" alt="Logomarca do estabelecimento" class="img-fluid" style="max-width: 150px;">
+        		</div>
+			@endif
+		    </div>
+		</div>
+	    </div>
 
-        <label for="address">Endereço</label>
-        <input type="text" name="address" id="address" value="{{$store->store_address}}" required>
+	    <!--Coluna do formulário-->
+            <div class="col-md-8">
+                <div class="row mb-3">
+                    <div class="col">
+		        <label for="name" class="form-label">Estabelecimento</label>
+		        <input type="text" name="name" class="form-control" id="name" value="{{$store->store_name}}" required>
+  		    </div>
+		    <div class="col">
+        		<label for="address" class="form-label">Endereço</label>
+        		<input type="text" name="address" class="form-control" id="address" value="{{$store->store_address}}" required>
+ 	   	    </div>
+                </div>
+            </div>
 
-        <label for="store_img">Imagem</label>
-        <input type="file" name="store_img" accept="image/*" id="store_img">
-
-        @if ($store->id != 0)
-        <button class="btn btn-primary">Salvar alterações</button>
-        @else
-        <button class="btn btn-primary">Cadastrar</button>
-        @endif
+          <div class="d-flex justify-content-end gap-2">
+             <br>
+             @if ($store->id != 0)
+             <button class="btn btn-success">Salvar alterações</button>
+             @else
+             <button class="btn btn-success">Cadastrar</button>
+             @endif
+             <a class="btn btn-outline-secondary" href="/admin/estabelecimentos">Voltar</a>
+          </div>
+       </div>
     </form>
-    <a class="btn btn-primary" href="/admin/estabelecimentos">Voltar</a>
 </div>
 @endsection
+
