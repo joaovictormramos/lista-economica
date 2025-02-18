@@ -13,11 +13,16 @@
         </ul>
     </div>
     @endif
+<<<<<<< HEAD
     @if($brand->id != 0)
     <h1>Editar Marca</h1>
     @else
     <h1>Cadastrar Marca</h1>
     @endif
+=======
+
+    <h2>Cadastrar ou Editar Marca</h2>
+>>>>>>> de8416387bf0cdb0102ba5933b1dc1893152d16c
     <form action="/admin/cadastrar-marca" method="post" enctype="multipart/form-data" class="form">
         @csrf
         <input type="hidden" name="id" value="{{$brand->id}}">

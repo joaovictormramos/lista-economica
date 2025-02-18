@@ -15,11 +15,15 @@
     @endif
 
     <div class="row mb-3">
+<<<<<<< HEAD
 	@if($package->id != 0)
        	<h1>Editar Embalagem</h1>
 	@else
 	<h1>Cadastrar Embalagem</h1>
 	@endif
+=======
+        <h2>Cadastrar Embalagem</h2>
+>>>>>>> de8416387bf0cdb0102ba5933b1dc1893152d16c
         <form action="/admin/cadastrar-embalagem" method="post">
             @csrf
             <input type="hidden" name="id" value="{{$package->id}}">
@@ -32,7 +36,7 @@
                     </div>
                 </div>
             </div>
-
+s
             <div class="col-md-8">
                 @if ($package->id != 0)
                 <button type="submit" class="btn btn-success">Salvar edições</button>

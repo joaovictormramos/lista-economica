@@ -15,11 +15,15 @@
     @endif
 
     <div class="row mb-3">
+<<<<<<< HEAD
 	@if($section->id != 0)
         <h1>Editar Seção</h1>
 	@else
 	<h1>Cadastrar Seção</h1>
 	@endif
+=======
+        <h1>Cadastrar Seção</h1>
+>>>>>>> de8416387bf0cdb0102ba5933b1dc1893152d16c
         <form action="/admin/cadastrar-secao" method="post">
             @csrf
             <input type="hidden" name="id" value="{{$section->id}}">

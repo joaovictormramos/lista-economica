@@ -13,11 +13,16 @@
         </ul>
     </div>
     @endif
+<<<<<<< HEAD
     @if($store->id != 0)
     <h1>Editar Estabelecimento</h1>
     @else
     <h1>Cadastrar Estabelecimento</h1>
     @endif
+=======
+
+    <h1>Cadastrar ou Editar Estabelecimento</h1>
+>>>>>>> de8416387bf0cdb0102ba5933b1dc1893152d16c
     <form action="/admin/cadastrar-estabelecimento" method="post" enctype="multipart/form-data" class="form">
         @csrf
         <input type="hidden" name="id" value="{{$store->id}}">

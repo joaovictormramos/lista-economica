@@ -21,9 +21,14 @@ class BrandRequest extends FormRequest
      */
     public function rules(): array
     {
+<<<<<<< HEAD
 	$brandId = $this->id;
         return [
             'brand_name' => 'required|unique:brands,brand_name,' . $brandId
+=======
+        return [
+            'brand_name' => 'required|unique:brands'
+>>>>>>> de8416387bf0cdb0102ba5933b1dc1893152d16c
         ];
     }
 
