@@ -11,10 +11,11 @@ use App\Http\Controllers\ProductStoreController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StoreController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
-Route::get('/home', [HomeController::class, 'index'])->name('index');
+//Route::get('/home', [HomeController::class, 'index'])->name('index');
 Route::get('/estabelecimentos', [StoreController::class, 'getStores'])->name('stores');
 Route::get('/secoes', [SectionController::class, 'getSections'])->name('sections');
 Route::get('/marcas', [BrandController::class, 'getBrands'])->name('brands');
@@ -25,7 +26,7 @@ Route::get('/results', [HomeController::class, 'search'])->name('search');
 //Admin routes
 Route::prefix('admin')->middleware(['role:superadmin,admin'])->group(function () {
     Route::get('/', [AdminController::class, 'management'])->name('admin.management');
-    Route::get('/gerenciar', [AdminController::class, 'management'])->name('admin.management');
+   // Route::get('/gerenciar', [AdminController::class, 'management'])->name('admin.management');
 
     //Stores routes
     Route::get('/estabelecimentos', [StoreController::class, 'getStores'])->name('admin.stores');
@@ -100,6 +101,29 @@ Route::prefix('admin')->middleware(['role:superadmin,admin'])->group(function ()
 
 Route::prefix('user')->middleware(['role:user'])->group(function () {});
 
+Route::get('/auth/{provider}/redirect', function (string $provider) {
+    return Socialite::driver($provider)->redirect();
+})->name('auth');
+
+Route::get('/auth/{provider}/callback', function (string $provider) {
+    try {
+    	$provideruser = Socialite::driver($provider)->user();
+    	$user = Socialite::driver($provider)->user();
+    	$user = User::updateOrCreate([
+        	'email' => $provideruser->email,
+    	], [
+        	'provider_id' => $provideruser->id,
+        	'name' => $provideruser->name,
+        	'provider_avatar' => $provideruser->provider_avatar,
+        	'provider_name' => $provider,
+    	]);
+    	Auth::login($user);
+    	return redirect()->route('/');
+    } catch (\Exception $e) {
+	return redirect()->route('login')->with('error', 'O login foi cancelado ou houve um erro.');
+    }
+});
+
 //Route::get()
 /*
 |--------------------------------------------------------------------------
@@ -126,6 +150,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/adicionar-produto', [ListerProductController::class, 'addProduct'])->name('user.addProduct');
     Route::post('/buscar-menor-preco', [ListerProductController::class, 'lowerPrice'])->name('user.lowerPrice');
     Route::get('/detalhes-lista/{id}', [ListerController::class, 'details'])->name('list.details');
+    Route::delete('/apagar-lista/{id}', [ListerController::class, 'delete'])->name('list.delete');
 });
 
 require __DIR__ . '/auth.php';

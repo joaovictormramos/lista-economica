@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BrandRequest;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -21,7 +22,7 @@ class BrandController extends Controller
         return view("/admin/register_brand", compact('brand'));
     }
 
-    public function registerBrand(Request $request)
+    public function registerBrand(BrandRequest $request)
     {
         if ($request->input('id') == 0) {
             $brand = new Brand();

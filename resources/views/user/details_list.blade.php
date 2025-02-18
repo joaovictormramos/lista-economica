@@ -46,7 +46,7 @@
                 </div>
             </li>
             @endforeach
-            <strong>R$ {{ $list->total}}</strong>
+            <strong>R$ {{ number_format($list->total, 2, ',') }}</strong>
         </ul>
         @else
         <div class="alert alert-info">

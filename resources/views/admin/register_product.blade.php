@@ -12,7 +12,12 @@
         </ul>
     </div>
     @endif
-    <h2>Cadastrar Produto</h2>
+
+    @if($product->id != 0)
+    <h1>Editar Produto</h1>
+    @else
+    <h1>Cadastrar Produto</h1>
+    @endif
     <form action="/admin/cadastrar-produto" method="post" enctype="multipart/form-data" class="form">
         @csrf
         <input type="hidden" name="id" value="{{$product->id}}">
@@ -56,7 +61,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="measurement" class="form-label">Medida</label>
-                        <input type="number" id="measurement" name="measurement" class="form-control" placeholder="Insira a medida" value="{{$product->measurement}}">
+                        <input type="number" id="measurement" name="measurement" class="form-control" placeholder="Insira a medida" value="{{$product->product_measurement}}">
                     </div>
                     <div class="col">
                         <label class="form-label">Unidade</label>
@@ -112,11 +117,11 @@
         </div>
 
         <div class="d-flex justify-content-end gap-2">
-            <a href="/admin/produtos" class="btn btn-light">Cancelar</a>
+            <a href="/admin/produtos" class="btn btn-outline-secondary">Cancelar</a>
             @if ($product->id != 0)
-            <button type="submit" class="btn btn-primary">Salvar edições</button>
+            <button type="submit" class="btn btn-success">Salvar edições</button>
             @else
-            <button type="submit" class="btn btn-primary">Cadastrar produto</button>
+            <button type="submit" class="btn btn-success">Cadastrar produto</button>
             @endif
         </div>
     </form>

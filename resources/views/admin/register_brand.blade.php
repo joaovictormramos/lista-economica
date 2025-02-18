@@ -1,5 +1,5 @@
 @extends('template')
-@section('title', 'Registrar marca')
+@section('title', 'Cadastrar Marca')
 
 @section('content')
 <div class="container">
@@ -13,8 +13,12 @@
         </ul>
     </div>
     @endif
-    <h2>Cadastrar Marca</h2>
-    <form action="/admin/cadastrar-marca" method="post" enctype="multipart/form-data">
+    @if($brand->id != 0)
+    <h1>Editar Marca</h1>
+    @else
+    <h1>Cadastrar Marca</h1>
+    @endif
+    <form action="/admin/cadastrar-marca" method="post" enctype="multipart/form-data" class="form">
         @csrf
         <input type="hidden" name="id" value="{{$brand->id}}">
 
@@ -29,7 +33,7 @@
 
                         @if($brand->brand_img)
                         <div class="mt-2">
-                            <img src="{{ asset('storage/images/'.$brand->brand_img) }}" alt="Imagem do Marca" class="img-fluid" style="max-width: 150px;">
+                            <img src="{{ asset('storage/images/' . $brand->brand_img) }}" alt="Logomarca" class="img-fluid" style="max-width: 150px;">
                         </div>
                         @endif
                     </div>
@@ -47,12 +51,12 @@
             </div>
 
             <div class="d-flex justify-content-end gap-2">
-                <a href="{{ route('admin.brands') }}" class="btn btn-light">Cancelar</a>
                 @if ($brand->id != 0)
-                <button type="submit" class="btn btn-primary">Salvar edições</button>
+                <button type="submit" class="btn btn-success">Salvar edições</button>
                 @else
-                <button type="submit" class="btn btn-primary">Cadastrar produto</button>
+                <button type="submit" class="btn btn-success">Cadastrar marca</button>
                 @endif
+		<a href="{{ route('admin.brands') }}" class="btn btn-outline-secondary">Cancelar</a>
             </div>
         </div>
     </form>

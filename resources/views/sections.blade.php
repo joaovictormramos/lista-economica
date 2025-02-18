@@ -3,7 +3,8 @@
 
 @section('content')
 <div class="container">
-    <table class="table">
+    <br>
+    <table class="table text-center border">
         <thead>
             <tr>
                 <th>Seções</th>
@@ -19,18 +20,16 @@
             </td>
             @can('isSuperadmin')
             <td>
-                <a href="/admin/editar-secao/{{$section->id}}" class="btn btn-warning">Editar</a>
-                <a href="/admin/excluir-secao/{{$section->id}}" class="btn btn-danger">Excluir</a>
+                <a href="/admin/editar-secao/{{$section->id}}" class="btn btn-dark">✏️</a>
+                <a href="/admin/excluir-secao/{{$section->id}}" class="btn btn-light border">❌</a>
             </td>
             @endcan
         </tr>
         @endforeach
     </table>
     @can('isSuperadmin')
-    <a class="btn btn-primary" href="/admin/cadastrar-secao">Cadastrar seção</a>
+    <a class="btn btn-success" href="/admin/cadastrar-secao">Cadastrar seção</a>
     @endcan
-    <a class="btn btn-danger" href="/admin/gerenciar">Voltar</a>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <a class="btn btn-outline-secondary" href="/admin">Voltar</a>
 </div>
 @endsection

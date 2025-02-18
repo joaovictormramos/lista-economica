@@ -26,18 +26,20 @@ class ListerController extends Controller
         } else {
             return redirect()->route('login');
         }
-        return view('/user/create_list', compact('user'));
+        $listsQuantity = Lister::where('user_id', $user->id)->count() + 1;
+        $hoje = date('Y-m-d');
+        return view('/user/create_list', compact('user', 'listsQuantity', 'hoje'));
     }
 
     public function createList(Request $request)
     {
         $lister = new Lister();
         //Conta a quantidade de listas que o usuário possui e adiciona à variável.
-        $quantityLists = Lister::where('user_id', $request->input('userId'))->count();
+        $listsQuantity = Lister::where('user_id', $request->input('userId'))->count();
 
         $lister->user_id = $request->input('userId');
         //Se a lista não tiver título, será nomeada com 'Lista' seguido do número de listas que o usuário possui.
-        $lister->title = $request->input('title') ?? "Lista " . $quantityLists + 1;
+        $lister->title = $request->input('title') ?? "Lista " . $listsQuantity + 1;
         $lister->scheduled_date = $request->input('scheduled_date') ?? date('Y-m-d');
         $lister->save();
         return redirect('/');
@@ -50,4 +52,13 @@ class ListerController extends Controller
         $products = $list->products;
         return view('/user/details_list', compact('list', 'userId'));
     }
+
+    public function delete($id)
+    {
+	$list = Lister::with('users')->findOrFail($id);
+	$userId = $list->user_id;
+	$list->delete();
+	return redirect()->route('user.lists', $userId);
+    }
+
 }
