@@ -8,9 +8,9 @@
     <!-- Search and Filter Section -->
     <div class="row mb-4">
         <div class="col-md-12">
-            <!--<form action="" method="" class="row g-3">
+            <form action="" method="" class="row g-3">
                 <div class="col-md-4">
-                    <input type="text" name="search" class="form-control" placeholder="Pesquisar produtos..." value="{{ request('search') }}">
+                    <h3>Filtrar</h3>
                 </div>
                 <div class="col-md-3">
                     <select name="brand" class="form-select">
@@ -33,23 +33,28 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+                    <button type="submit" class="btn btn-success w-100">Filtrar</button>
                 </div>
-            </form>-->
+            </form>
         </div>
     </div>
 
     <section class="layoutgrid">
-        @if($products->isEmpty())
-        <div class="alert alert-info w-100" role="alert">
-            Nenhum produto encontrado com os filtros selecionados.
-        </div>
-        @endif
 
         @foreach ($products as $product)
         <div class="panel border">
+
             <img src="/storage/images/{{$product->product_img}}" alt="{{$product->product_name}}" class="image-container p-2">
-            <p class="store-name px-2">{{$product->product_name}} <strong>{{$product->brand->brand_name}}</strong> {{$product->product_measurement}} {{$product->product_unity_measurement}}</p>
+
+            <p class="store-name px-2">{{$product->product_name}} <strong>{{$product->brand->brand_name}}</strong>
+                @php
+                $formattedMeasurement = $product->product_measurement == floor($product->product_measurement)
+                ? number_format($product->product_measurement, 0, ',', '.') // Sem casas decimais
+                : number_format($product->product_measurement, 2, ',', '.'); // Com 2 casas decimais
+                @endphp
+                {{$formattedMeasurement}} {{$product->product_unity_measurement}}
+            </p>
+
             <div class="dropdown">
                 @cannot('isSuperadmin')
                 <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">Adicionar à lista</button>
@@ -86,13 +91,15 @@
                     </ul>
                 </form>
             </div>
-	    <div class="buttons-container mb-2">
-            	@can('isSuperadmin')
-            	<a href="{{ route('admin.editproduct', ['id' => $product->id]) }}" class="btn btn-dark">✏️</a>
-            	<a href="{{ route('admin.deleteproduct', ['id' => $product->id]) }}" class="btn btn-light border">❌</a>
-            	@endcan
+
+            <div class="buttons-container mb-2">
+                @can('isSuperadmin')
+                <a href="{{ route('admin.editproduct', ['id' => $product->id]) }}" class="btn btn-dark">✏️</a>
+                <a href="{{ route('admin.deleteproduct', ['id' => $product->id]) }}" class="btn btn-light border">❌</a>
+                @endcan
             </div>
-	</div>
+
+        </div>
         @endforeach
     </section>
     {{ $products->links() }}
@@ -101,7 +108,7 @@
     <a class="btn btn-success" href="{{ route('admin.registerproduct') }}">Cadastrar produto</a>
     <a class="btn btn-outline-secondary" href="{{ route('admin.management') }}">Voltar</a>
     @else
-    <a class="btn btn-secondary" href="{{ route('index') }}">Voltar</a>
+    <a class="btn btn-outline-secondary" href="{{ route('index') }}">Voltar</a>
     @endcan
 </div>
 

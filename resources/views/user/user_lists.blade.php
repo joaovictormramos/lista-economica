@@ -11,7 +11,7 @@
         </a>
     </div>
 
-    <div class="space-y-4">
+    <div class="table-responsive">
         <table class="table border text-center">
             <thead>
                 <tr>
@@ -34,9 +34,9 @@
                             <i class="bi bi-pencil-square"></i>
                         </a>
 
-			<a href="#" onclick="event.preventDefault(); if (confirm('Tem certeza que deseja excluir?')) { document.getElementById('delete-form-{{ $list->id }}').submit(); }" class="btn btn-danger">
-                              <i class="bi bi-trash3"></i>
-			</a>
+                        <a href="#" onclick="event.preventDefault(); if (confirm('Tem certeza que deseja excluir?')) { document.getElementById('delete-form-{{ $list->id }}').submit(); }" class="btn btn-danger">
+                            <i class="bi bi-trash3"></i>
+                        </a>
                         <form id="delete-form-{{ $list->id }}" action="{{ route('list.delete', $list->id) }}" method="POST" style="display: none;">
                             @csrf
                             @method('DELETE')

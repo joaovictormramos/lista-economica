@@ -4,7 +4,11 @@
 @section('content')
 <div class="container mt-4">
     <br>
-    <h1 class="mb-4">Lista de Compras</h1>
+
+    <div class="d-flex align-items-baseline justify-content-between">
+        <h1 class="">{{$list->title}}</h1>
+        <h6>{{ date( 'd/m/Y' , strtotime($list->scheduled_date))}}</h6>
+    </div>
 
     <ul class="list-group">
         @if($list && $list->products->count() > 0)
@@ -24,7 +28,7 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center">
                         @if($product->product_img)
-                        <img src="{{ asset('storage/images/' . $product->product_img) }}" alt="{{ $product->product_name }}" class="mr-3" style="width: 50px; height: 50px; object-fit: cover;">
+                        <img src="{{ asset('storage/images/' . $product->product_img) }}" alt="{{ $product->product_name }}" class="mr-3" style="width: 50px; height: 50px; object-fit: contain;">
                         @else
                         <div class="mr-3" style="width: 50px; height: 50px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">
                             <span class="text-muted">No Image</span>
@@ -46,7 +50,10 @@
                 </div>
             </li>
             @endforeach
-            <strong>R$ {{ number_format($list->total, 2, ',') }}</strong>
+            <div class="d-flex justify-content-between">
+                <h6>Total: R$ {{ number_format($list->total, 2, ',') }}</h6>
+                <h6>Onde ir: {{$list->store_name}}</h6>
+            </div>
         </ul>
         @else
         <div class="alert alert-info">

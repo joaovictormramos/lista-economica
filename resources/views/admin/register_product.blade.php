@@ -61,7 +61,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="measurement" class="form-label">Medida</label>
-                        <input type="number" id="measurement" name="measurement" class="form-control" placeholder="Insira a medida" value="{{$product->product_measurement}}">
+                        <input type="number" id="measurement" name="measurement" class="form-control" placeholder="Insira a medida" value="{{$product->product_measurement}}" step="0.01" min="0.01">
                     </div>
                     <div class="col">
                         <label class="form-label">Unidade</label>

@@ -5,9 +5,13 @@
 
 <div class="container">
     <h2>{{$store->store_name}}</h2>
-    <a href="{{ route('admin.formaddproduct', ['id' => $store->id]) }}" class="btn btn-primary">Adicionar produtos</a>
-    <a href="{{ route('admin.formeditproduct', ['id' => $store->id]) }}" class="btn btn-primary">Editar produtos</a>
-    <a href="{{ route('admin.stores') }}" class="btn btn-danger">Voltar</a>
+
+    <div class="card p-3 mt-3 shadow-sm">
+        <a href="{{ route('admin.formaddproduct', ['id' => $store->id]) }}" class="btn btn-success m-1">Adicionar produtos</a>
+        <a href="{{ route('admin.formeditproduct', ['id' => $store->id]) }}" class="btn btn-success m-1">Editar produtos</a>
+        <a href="{{ route('admin.stores') }}" class="btn btn-outline-secondary m-1">Voltar</a>
+    </div>
+
 </div>
 
 @endsection

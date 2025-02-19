@@ -12,7 +12,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StoreController;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 //Route::get('/home', [HomeController::class, 'index'])->name('index');
@@ -26,7 +28,7 @@ Route::get('/results', [HomeController::class, 'search'])->name('search');
 //Admin routes
 Route::prefix('admin')->middleware(['role:superadmin,admin'])->group(function () {
     Route::get('/', [AdminController::class, 'management'])->name('admin.management');
-   // Route::get('/gerenciar', [AdminController::class, 'management'])->name('admin.management');
+    // Route::get('/gerenciar', [AdminController::class, 'management'])->name('admin.management');
 
     //Stores routes
     Route::get('/estabelecimentos', [StoreController::class, 'getStores'])->name('admin.stores');
@@ -48,7 +50,7 @@ Route::prefix('admin')->middleware(['role:superadmin,admin'])->group(function ()
 
     Route::post('/adicionar-produto', [ProductStoreController::class, 'addStoreProduct']);
 
-    Route::get('/editar-produto-estabelecimento/{storeId}/{productId}', [ProductStoreController::class, 'formSetSetoreProduct']);
+    Route::get('/editar-produto-estabelecimento/{storeId}/{productId}', [ProductStoreController::class, 'formSetSetoreProduct'])->name('productStore.editPrice');
 
     Route::post('/editar-produto-estabelecimento', [ProductStoreController::class, 'setSetoreProduct'])->name('admin.edit.store.product');
 
@@ -107,20 +109,20 @@ Route::get('/auth/{provider}/redirect', function (string $provider) {
 
 Route::get('/auth/{provider}/callback', function (string $provider) {
     try {
-    	$provideruser = Socialite::driver($provider)->user();
-    	$user = Socialite::driver($provider)->user();
-    	$user = User::updateOrCreate([
-        	'email' => $provideruser->email,
-    	], [
-        	'provider_id' => $provideruser->id,
-        	'name' => $provideruser->name,
-        	'provider_avatar' => $provideruser->provider_avatar,
-        	'provider_name' => $provider,
-    	]);
-    	Auth::login($user);
-    	return redirect()->route('/');
+        $provideruser = Socialite::driver($provider)->user();
+        $user = Socialite::driver($provider)->user();
+        $user = User::updateOrCreate([
+            'email' => $provideruser->email,
+        ], [
+            'provider_id' => $provideruser->id,
+            'name' => $provideruser->name,
+            'provider_avatar' => $provideruser->provider_avatar,
+            'provider_name' => $provider,
+        ]);
+        Auth::login($user);
+        return redirect()->route('/');
     } catch (\Exception $e) {
-	return redirect()->route('login')->with('error', 'O login foi cancelado ou houve um erro.');
+        return redirect()->route('login')->with('error', 'O login foi cancelado ou houve um erro.');
     }
 });
 
@@ -136,9 +138,9 @@ Route::get('/auth/{provider}/callback', function (string $provider) {
 |
  */
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', function () {
+    return view('welcome');
+})->middleware(['auth', 'verified'])->name('index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/minhas-listas/{id}', [ListerController::class, 'getListerUser'])->name('user.lists');

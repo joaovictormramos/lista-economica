@@ -109,4 +109,9 @@ class ProductStoreController extends Controller
         $store->products()->detach($productId);
         return redirect('/admin/editar-produto-estabelecimento/' . $storeId);
     }
+
+    public function editPrice(Request $request)
+    {
+        return redirect()->return('');
+    }
 }

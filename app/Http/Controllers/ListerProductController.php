@@ -61,6 +61,6 @@ class ListerProductController extends Controller
 
         // session(['total_price' => $total_price, 'storeName' => $storeName, 'storeId' => $storeId]);
 
-        return redirect('/');
+        return redirect()->route('list.details', $listId);
     }
 }
