@@ -57,7 +57,7 @@
 
             <div class="dropdown">
                 @cannot('isSuperadmin')
-                <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">Adicionar à lista</button>
+                <button class="btn btn-success" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-plus-lg"></i></button>
                 @endif
                 <form action="{{ route('user.addProduct') }}" method="post">
                     @csrf
@@ -65,6 +65,7 @@
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li>
                             @foreach($lists as $list)
+                            @if($list->scheduled_date > \Carbon\Carbon::today()->toDateString())
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="checkbox-container mx-1" onclick="event.stopPropagation()">
                                     <input class="form-check-input" type="checkbox" name="list_id[]" id="list_{{$list->id}}" value="{{$list->id}}">
@@ -78,6 +79,7 @@
                                     </button>
                                 </span>
                             </div>
+                            @endif
                             @endforeach
                         </li>
                         <div class="d-flex justify-content-center align-items-center">

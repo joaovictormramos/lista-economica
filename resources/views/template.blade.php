@@ -105,7 +105,14 @@
             </div>
             <div class="offcanvas-body">
                 @foreach($list->products as $product)
-                <p>{{$product->product_name}}</p>
+                <p>{{$product->product_name . ' ' . $product->brand->brand_name}}
+                    @php
+                    $formattedMeasurement = $product->product_measurement == floor($product->product_measurement)
+                    ? number_format($product->product_measurement, 0, ',', '.') // Sem casas decimais
+                    : number_format($product->product_measurement, 2, ',', '.'); // Com 2 casas decimais
+                    @endphp
+                    {{$formattedMeasurement}} {{$product->product_unity_measurement}}
+                </p>
                 @endforeach
 
                 <strong>R$ {{ number_format($list->total, 2, ',') }}</strong>
